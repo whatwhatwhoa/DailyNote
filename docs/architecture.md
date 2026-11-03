@@ -15,7 +15,7 @@ Single page, no extras: no list of notes, no formatting, no sync, no account, no
 | `ui/NotePage.kt` | The page: paper, text field, tap below, band, undo pill, the sheet |
 | `ui/Eraser.kt` | The word eraser: gesture, what to erase, the scratch, the fade and collapse |
 | `ui/PaperSheet.kt` | The settings sheet: paper, size, font, swipe to erase |
-| `widget/` | `NoteWidget` (provider), `LinesService` (the list), `WidgetPage` (drawing) |
+| `widget/` | `NoteWidget` (provider and its lines), `WidgetPage` (wrapping and drawing) |
 | `res/font/patrick_hand.ttf` | The handwriting font: Patrick Hand, Latin only (74 KB, cut by `tools/cut_font.py`); OFL, `licenses/` |
 | `src/debug/.../WidgetHostActivity.kt` | A stand-in launcher for trying the widget |
 
@@ -80,14 +80,13 @@ page turn, so the widget shows the page and a tap on a line opens the app with t
 there. It is resizable with no upper bound, up to a whole home-screen page.
 
 `NoteWidget.update` sets the paper color (a tinted image, so the launcher's rounded corners
-stay), the band as one bitmap, and a list whose rows come from `LinesService`. `WidgetPage`
+stay), the band as one bitmap, and the list's rows themselves, in every update (no list
+service, which newer Android reads once and keeps). `WidgetPage`
 wraps the note to the widget's width with a `StaticLayout` in the chosen font. Each row is a
 strip of paper with the line's ink over it. Every row of a paper is the same strip, and every
 row gets the very same bitmap object, so the launcher stores it once (the grid has two: its
 darker fifth lines). The ink is drawn by the app, since a launcher ignores an app's fonts: an
 alpha-only picture cut to the line's width (about 100 KB a line), tinted in the row layout,
-its baseline where the app puts it. Rows run past the text to fill the widget. Updates go
-through the application context, as newer Android binds `LinesService` from the caller's
-context. Each row carries where a tap puts the cursor: the end of that line, or, below the
+its baseline where the app puts it. Rows run past the text to fill the widget. Each row carries where a tap puts the cursor: the end of that line, or, below the
 text, how many blank lines to add (`Jump`). The app refreshes every widget when it leaves the
 screen.

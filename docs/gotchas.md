@@ -5,11 +5,12 @@ Compose resolves an `sp` line height, under Android 14+'s nonlinear font scaling
 font size × (line sp / font sp): not the pixels asked for. At 130% the lines came out ~20%
 taller than the paper's rules. Give the line height in `em` of the actual font size (D1.3).
 
-### Android 16+ inlines a widget's list
-`setRemoteAdapter(Intent)` lists are fetched once by the system and packed into the widget's
-own bundle, bitmaps and all, bound from the context that called `updateAppWidget`. One bitmap
-per line made 12.4 MB; share one bitmap object across rows (it is stored once) and update from
-the application context, or the activity leaks the service connection (D1.6).
+### Android 16+ inlines a widget's list, and keeps it
+`setRemoteAdapter(Intent)` lists are fetched once by the system (binding the service from the
+caller's context) and packed into the widget's own bundle, bitmaps and all; later updates and
+`notifyAppWidgetViewDataChanged` didn't refetch, so the widget never showed edits. Give the
+rows directly (`RemoteCollectionItems`) in every update. Bitmaps count once per object: one
+bitmap per line made 12.4 MB, one strip shared by every line is stored once (D1.6).
 
 ### A widget can't use the app's fonts
 RemoteViews has no typeface setter, and the launcher ignores `android:fontFamily="@font/..."`

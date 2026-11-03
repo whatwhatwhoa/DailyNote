@@ -49,7 +49,8 @@ together): on Android 17 the system inlines a widget's whole list into one bundl
 owner's widget held 12.4 MB of bitmaps (and showed no text). Then a text view over a shared
 paper strip: the launcher ignored the bundled font (owner: "widget rendering wrong font").
 Now the ink is drawn by the app as an alpha-only picture per line over the shared strip, about
-1 MB for the owner's widget. Rejected: Glance (a library, the same limits). Status: as built
+1 MB for the owner's widget; and the rows go in each update, as the system kept a list
+service's first answer (owner: "widget is not refreshing"). Rejected: Glance (a library, the same limits). Status: as built
 2026-11-03, owner to confirm on the home screen.
 
 ### D1.7 · 2026-11-03 · Release signing: a key of its own, outside the repo

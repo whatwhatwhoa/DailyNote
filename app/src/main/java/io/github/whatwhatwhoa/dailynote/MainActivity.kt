@@ -35,7 +35,7 @@ class MainActivity : ComponentActivity() {
 
     override fun onStop() {
         Note.flush()
-        NoteWidget.refresh(applicationContext)
+        NoteWidget.refresh(this)
         super.onStop()
     }
 }

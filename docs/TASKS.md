@@ -18,7 +18,7 @@ extras, no features." Decisions: `decisions/M1-first-light.md`.
 - [x] T1.5 Widget — 2026-11-03: the page on the home screen, tap a line to write (D1.6)
 - [x] T1.6 Fonts (owner's ask) — 2026-11-03: Normal and Handwriting, Patrick Hand for legibility (D1.8)
 - [x] T1.9 Blank lines at the end clear themselves (owner's ask) — 2026-11-03 (D1.4)
-- [ ] T1.7 Publish: privacy scan, public repo, signed 0.1.0 on a GitHub release (D1.7)
+- [x] T1.7 Publish — 2026-11-03: public repo, signed 0.1.0 on a GitHub release (D1.7)
 - [ ] T1.8 VERIFY round with the owner (`VERIFY.md` *V-M1*) on the Pixel.
 
 ### Later

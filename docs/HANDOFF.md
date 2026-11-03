@@ -7,13 +7,16 @@ open, delete what is resolved, never append history (git and `docs/decisions/` h
 the owner's Pixel 11 Pro XL, with the owner trying it live and asking for changes as it went:
 erase by word with a scratch, fade and closing gap (replacing the whole-note wipe), a *Swipe to
 erase* switch, Normal and Handwriting fonts (Patrick Hand, after Caveat was too hard to read),
-the widget's ink drawn by the app (a launcher ignores app fonts), and blank lines at the end
-clearing themselves. Public on GitHub under MIT (T1.7); 0.1.0 on a GitHub release with a signed
-APK. Debug builds are signed with the release key too, so test builds and releases replace each
-other on the Pixel. Lint clean; release APK 2.2 MB.
+the widget's ink drawn by the app (a launcher ignores app fonts) and its lines given in each
+update (it wasn't refreshing), and blank lines at the end clearing themselves. Public on GitHub
+under MIT (T1.7); 0.1.0 on a GitHub release with a signed APK. Debug builds are signed with the
+release key too, so test builds and releases replace each other on the Pixel. Lint clean;
+release APK 2.2 MB; the signed release ran on the Pixel (opens in 0.13 s).
 
 ## Next
 1. The owner tries it (`VERIFY.md` *V-M1*, T1.8), mostly the scratch's feel and the widget.
+   The owner's widget went with the switch to the release key (one uninstall; the note and
+   settings were put back): it needs adding again, then check it refreshes on leaving the app.
 2. README screenshots, when the Pixel is free (each paper, the sheet, the widget).
 
 ## Waiting on the owner

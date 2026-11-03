@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- The widget: the paper's color, the pad's band on top, then one picture per line of paper
-     (LinesService). The color is an ImageView tinted at run time, so the corners stay round. -->
+<!-- The widget: the paper's color, the pad's band on top, then one row per line of paper
+     (NoteWidget.row). The color is an ImageView tinted at run time, so the corners stay round. -->
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/root"
     android:layout_width="match_parent"
