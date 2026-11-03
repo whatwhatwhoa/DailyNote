@@ -5,6 +5,17 @@ Compose resolves an `sp` line height, under Android 14+'s nonlinear font scaling
 font size × (line sp / font sp): not the pixels asked for. At 130% the lines came out ~20%
 taller than the paper's rules. Give the line height in `em` of the actual font size (D1.3).
 
+### An em line height is of the size Compose draws, not of sp × a factor
+Under nonlinear font scaling a larger sp grows less: at 130%, 18 sp draws at 21.6 dp but
+20.7 sp (18 × 1.15) at 24.1 dp, not 24.8. Handwriting's line height, in em of the assumed
+size, came out 128 px against 135 px rules on Large: the ink crept up 7 px a line. Get the
+font size from the pixels (`px.toSp()`) and the em from that size's own `toPx()` (D1.3).
+
+### A widget row keeps what it doesn't set
+The launcher lays each update's rows over recycled row views, so a row that only sets the ink
+when there is ink stays `GONE` where a blank line was: new lines never showed. Every row sets
+everything it shows, visibility included (D1.6).
+
 ### Android 16+ inlines a widget's list, and keeps it
 `setRemoteAdapter(Intent)` lists are fetched once by the system (binding the service from the
 caller's context) and packed into the widget's own bundle, bitmaps and all; later updates and

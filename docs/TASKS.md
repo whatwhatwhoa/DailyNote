@@ -21,5 +21,10 @@ extras, no features." Decisions: `decisions/M1-first-light.md`.
 - [x] T1.7 Publish — 2026-11-03: public repo, signed 0.1.0 on a GitHub release (D1.7)
 - [ ] T1.8 VERIFY round with the owner (`VERIFY.md` *V-M1*) on the Pixel.
 
+### B1 — Owner's bugs (2026-11-03), released in 0.2.0
+- [x] B1.1 The widget still doesn't refresh — 2026-11-03: rows set the ink visible (D1.6)
+- [x] B1.2 Lower lines drift off the rules (Handwriting, Large, 130%) — 2026-11-03: size from pixels (D1.3)
+- [x] B1.3 The widget scrolls with nothing below — 2026-11-03: rows fill it exactly (D1.6)
+
 ### Later
 Only if the owner asks; the app is meant to have no extras.

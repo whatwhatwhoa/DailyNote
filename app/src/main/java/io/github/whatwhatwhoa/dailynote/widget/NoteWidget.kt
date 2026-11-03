@@ -63,12 +63,17 @@ class NoteWidget : AppWidgetProvider() {
             manager.updateAppWidget(id, views)
         }
 
-        /** Line [i]: the paper strip (the same bitmap for every line), the ink, where a tap goes. */
+        /**
+         * Line [i]: the paper strip (the same bitmap for every line), the ink, where a tap goes.
+         * The launcher lays each row over a recycled one (a blank line's, say), keeping whatever
+         * the row doesn't set, so every row sets all it shows: the ink's visibility too.
+         */
         private fun row(context: Context, page: WidgetPage, i: Int): RemoteViews {
             val views = RemoteViews(context.packageName, R.layout.widget_row)
             views.setImageViewBitmap(R.id.strip, page.strip(i))
             val ink = page.ink(i)
             if (ink != null) {
+                views.setViewVisibility(R.id.ink, View.VISIBLE)
                 views.setImageViewBitmap(R.id.ink, ink.first)
                 views.setViewPadding(R.id.ink, page.textStart + ink.second, 0, 0, 0)
             } else {

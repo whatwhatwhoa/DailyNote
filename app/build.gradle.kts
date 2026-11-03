@@ -17,8 +17,8 @@ android {
         applicationId = "io.github.whatwhatwhoa.dailynote"
         minSdk = 31
         targetSdk = 37
-        versionCode = 1
-        versionName = "0.1.0"
+        versionCode = 2
+        versionName = "0.2.0"
     }
 
     // The release key stays outside the repo; local.properties says where it is. Without it a

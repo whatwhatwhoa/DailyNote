@@ -3,25 +3,21 @@
 Current state only. **Rewrite this file at the end of every session**: carry forward what is
 open, delete what is resolved, never append history (git and `docs/decisions/` hold it).
 
-**State (2026-11-03, ~1:30 am):** M1 *First light* built in one session (T1.1–T1.6, T1.9) on
-the owner's Pixel 11 Pro XL, with the owner trying it live and asking for changes as it went:
-erase by word with a scratch, fade and closing gap (replacing the whole-note wipe), a *Swipe to
-erase* switch, Normal and Handwriting fonts (Patrick Hand, after Caveat was too hard to read),
-the widget's ink drawn by the app (a launcher ignores app fonts) and its lines given in each
-update (it wasn't refreshing), and blank lines at the end clearing themselves. Public on GitHub
-under MIT (T1.7); 0.1.0 on a GitHub release with a signed APK. Debug builds are signed with the
-release key too, so test builds and releases replace each other on the Pixel. Lint clean;
-release APK 2.2 MB; the signed release ran on the Pixel (opens in 0.13 s).
+**State (2026-11-03, ~2 am):** 0.2.0 released (versionCode 2): the owner's first bug batch,
+B1. The widget showed no new lines (the launcher reapplies rows onto recycled ones and a blank
+row's hidden ink stayed hidden), scrolled with nothing below (rows ran ~170 px past its
+bottom; now they fill it exactly), and Handwriting crept off the rules line by line at the
+owner's 130% font, 7 px a line on Large (`gotchas.md`). The session saw the widget follow
+edits and a font switch, and its list not scrollable with a short note. 0.2.0 is on the Pixel
+(same cert as 0.1.0); lint clean; release APK 2.2 MB. The owner uses Handwriting, Large,
+College paper. The release key is backed up with every other app's (`docs/local.md`).
 
 ## Next
-1. The owner tries it (`VERIFY.md` *V-M1*, T1.8), mostly the scratch's feel and the widget.
-   The owner's widget went with the switch to the release key (one uninstall; the note and
-   settings were put back): it needs adding again, then check it refreshes on leaving the app.
-2. README screenshots, when the Pixel is free (each paper, the sheet, the widget).
+1. The owner sees B1 (`VERIFY.md` *V-B1*), mainly Handwriting on Large down a long note.
+2. The owner tries the rest of M1 (`VERIFY.md` *V-M1*, T1.8).
+3. README screenshots, when the Pixel is free (each paper, the sheet, the widget).
 
 ## Waiting on the owner
-- Back up the release key with its passwords (`docs/local.md` says where); lose it and no
-  update can install over 0.1.0.
 - As built, to confirm: the name *Daily Note* (D1.1); "dot matrix" read as dot grid, and the
   two yellows told apart (D1.2); the *Undo* pill I added (D1.5); Patrick Hand (D1.8).
 

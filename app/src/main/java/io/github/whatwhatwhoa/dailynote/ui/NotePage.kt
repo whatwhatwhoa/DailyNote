@@ -122,7 +122,10 @@ fun NotePage(jump: MutableState<Jump?>) {
 
     val textPx = with(density) { noteSize.sp.sp.toPx() }
     val lineH = PaperArt.lineHeight(textPx)
-    val inkPx = textPx * noteFont.scale
+    // The ink's size from the pixels back to sp, then the pixels Compose will really draw at:
+    // with a large system font a bigger sp grows less, so (sp × 1.15) is not textPx × 1.15.
+    val inkSp = with(density) { (textPx * noteFont.scale).toSp() }
+    val inkPx = with(density) { inkSp.toPx() }
     val bandH = WindowInsets.statusBars.getTop(density) + (36 * d).roundToInt()
     val contentTop = bandH + (lineH * 0.35f).roundToInt()
     val darkBand = PaperArt.darkBand(paper)
@@ -203,11 +206,11 @@ fun NotePage(jump: MutableState<Jump?>) {
     // The line height in whole pixels (a hair under, as Compose rounds it up), every line box
     // the same, so the rules drawn from the first baseline stay under every line. In em, not
     // sp: with a large system font Compose scales an sp line height by its own ratio.
-    val style = remember(noteSize, noteFont, textPx, lineH) {
+    val style = remember(noteFont, inkSp, inkPx, lineH) {
         TextStyle(
             color = Ink,
             fontFamily = if (noteFont == NoteFont.HAND) Hand else FontFamily.Default,
-            fontSize = (noteSize.sp * noteFont.scale).sp,
+            fontSize = inkSp,
             lineHeight = ((lineH - 0.05f) / inkPx).em,
             lineHeightStyle = LineHeightStyle(LineHeightStyle.Alignment.Center, LineHeightStyle.Trim.None),
             platformStyle = PlatformTextStyle(includeFontPadding = false),

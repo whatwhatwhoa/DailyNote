@@ -22,7 +22,10 @@ confirm "dot matrix" and the two yellows.
 The line spacing is 1.8 × the text size, rounded to whole pixels; the text field's line height
 is that spacing in `em`, and the paper's rules are drawn from the field's first baseline. First
 built in `sp`: on the owner's Pixel (font size 130%) Compose's nonlinear font scaling made the
-lines ~20% taller than the rules (`gotchas.md`). Status: as built 2026-11-03.
+lines ~20% taller than the rules (`gotchas.md`). Then Handwriting crept off the rules line by
+line (owner, B1.2): its size was given as sp × 1.15, which a large system font scales by less
+than the em assumed; now the size comes from pixels and the em from the size Compose draws.
+Status: as built 2026-11-03.
 
 ### D1.4 · 2026-11-03 · Tap a line to write
 Owner: "tap on a line to write". A tap on text is the text field's own; a tap on a blank line
@@ -50,8 +53,12 @@ owner's widget held 12.4 MB of bitmaps (and showed no text). Then a text view ov
 paper strip: the launcher ignored the bundled font (owner: "widget rendering wrong font").
 Now the ink is drawn by the app as an alpha-only picture per line over the shared strip, about
 1 MB for the owner's widget; and the rows go in each update, as the system kept a list
-service's first answer (owner: "widget is not refreshing"). Rejected: Glance (a library, the same limits). Status: as built
-2026-11-03, owner to confirm on the home screen.
+service's first answer (owner: "widget is not refreshing"). Still not refreshing (B1.1): the
+launcher reapplies rows onto recycled ones, and a row's ink, hidden on a blank line, was never
+shown again; each row now sets its ink visible. It also scrolled with nothing below (B1.3):
+the rows were rounded up and one added, ~170 px past the bottom; now, while the note fits,
+they fill the widget a dp short, the last row cut to fit. Rejected: Glance (a library, the same limits).
+Status: as built 2026-11-03, owner to confirm on the home screen.
 
 ### D1.7 · 2026-11-03 · Release signing: a key of its own, outside the repo
 As PowerMeter (D1.6 there): a 4096-bit RSA key for this app alone in the user's `.android`

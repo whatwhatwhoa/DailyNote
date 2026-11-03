@@ -2,6 +2,14 @@
 
 Built but not hand-tested. One section per feature; delete a section when the owner confirms it.
 
+## V-B1 — Owner's bugs (2026-11-03)
+Seen by the session: the home-screen widget followed the owner's edits and a font switch
+(Handwriting → Normal) each time they left the app; with a short note its list (1992 px) held
+14 rows and a 99 px last one, ending 3 px short, `scrollable` false. Still for the owner:
+- [ ] Handwriting, Large: a long note keeps every line on its rule, down to the last.
+- [ ] Add a new line in the app, go home: the widget shows it (and an edit to an old line).
+- [ ] A short note: the widget doesn't scroll; a note longer than the widget scrolls to its end.
+
 ## V-M1 — First light (2026-11-03)
 Seen working on the Pixel by the session: typing on the rules (Normal, College and yellow pad,
 Small and Medium, 130% system font), a word scratched out, a whole line scratched out with the

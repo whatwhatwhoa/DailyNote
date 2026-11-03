@@ -27,7 +27,8 @@ import kotlin.math.roundToInt
  * strip (the grid has two: its darker fifth lines), and the launcher gets the very same bitmap
  * for each, so it is stored once. The ink is drawn here, in the app's font (a widget can't use
  * an app's fonts), as an alpha-only picture cut to the line's width: about 100 KB a line.
- * Lines run on past the text to fill the widget.
+ * Lines run on past the text to fill the widget, the last one cut to fit, so a note that fits
+ * has nothing to scroll; a longer one scrolls to a blank line past its end.
  */
 class WidgetPage(context: Context, manager: AppWidgetManager, id: Int) {
     val paper = Prefs.paper
@@ -44,7 +45,10 @@ class WidgetPage(context: Context, manager: AppWidgetManager, id: Int) {
     private val baseline: Int
     private val layout: StaticLayout
     val rows: Int
-    private val strips = HashMap<Boolean, Bitmap>()
+
+    /** The last row's height when the note fits and the widget ends partway through a line, else 0. */
+    private val tail: Int
+    private val strips = HashMap<Int, Bitmap>()
 
     init {
         // A phone in portrait gets the narrowest width and tallest height the launcher reports.
@@ -70,7 +74,17 @@ class WidgetPage(context: Context, manager: AppWidgetManager, id: Int) {
         layout = StaticLayout.Builder.obtain(text, 0, text.length, paint, textWidth)
             .setIncludePad(false)
             .build()
-        rows = max(layout.lineCount + 1, ceil((height - bandH) / lineH.toDouble()).toInt() + 1)
+        // The rows end a dp short of the widget's bottom: the launcher reports whole dp, and a
+        // list even a pixel taller than the widget scrolls.
+        val space = height - bandH - d.roundToInt()
+        val full = space / lineH
+        if (layout.lineCount <= full) {
+            tail = space - full * lineH
+            rows = full + if (tail > 0) 1 else 0
+        } else {
+            tail = 0
+            rows = layout.lineCount + 1
+        }
     }
 
     fun band(): Bitmap {
@@ -79,13 +93,14 @@ class WidgetPage(context: Context, manager: AppWidgetManager, id: Int) {
         return b
     }
 
-    /** The paper under line [i]. */
+    /** The paper under line [i]; the last row's is cut short when the widget ends within it. */
     fun strip(i: Int): Bitmap {
         val major = paper == Paper.GRID && i % 5 == 0
-        return strips.getOrPut(major) {
-            val b = createBitmap(width, lineH, Bitmap.Config.RGB_565)
+        val h = if (tail > 0 && i == rows - 1) tail else lineH
+        return strips.getOrPut(h * 2 + if (major) 1 else 0) {
+            val b = createBitmap(width, h, Bitmap.Config.RGB_565)
             val k = if (major) 0 else 1
-            PaperArt.drawSheet(Canvas(b), paper, d, width.toFloat(), 0f, lineH.toFloat(), rule - k * lineH, lineH.toFloat())
+            PaperArt.drawSheet(Canvas(b), paper, d, width.toFloat(), 0f, h.toFloat(), rule - k * lineH, lineH.toFloat())
             b
         }
     }

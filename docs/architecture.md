@@ -43,8 +43,10 @@ short band look alike. `drawThumb` is the picker's miniature.
 Sizes are Small, Medium and Large: 15, 18 and 22 sp text, the line spacing 1.8 × the text
 size rounded to whole pixels. Fonts are Normal (the system sans) and Handwriting (Patrick
 Hand, drawn 1.15× larger for about the same x-height, on the same line spacing, so the paper
-does not change with the font). The text field's line height is that spacing given in `em`
-(a hair under, as Compose rounds line heights up), with the font's line centred in each line
+does not change with the font). The ink's size is set from pixels (the text size's pixels ×
+the font's factor, back to sp), and the text field's line height is that spacing given in `em`
+of the pixels Compose draws that size at (a hair under, as Compose rounds line heights up),
+so the lines match the rules at any system font size, with the font's line centred in each line
 box, so every line is the same height. The paper is drawn in a layer behind the scrolling text
 (only the visible part, moved with the scroll), its first rule just under the field's first
 baseline and the rest every line below. The band is fixed on top with the paper button at its
@@ -87,6 +89,10 @@ strip of paper with the line's ink over it. Every row of a paper is the same str
 row gets the very same bitmap object, so the launcher stores it once (the grid has two: its
 darker fifth lines). The ink is drawn by the app, since a launcher ignores an app's fonts: an
 alpha-only picture cut to the line's width (about 100 KB a line), tinted in the row layout,
-its baseline where the app puts it. Rows run past the text to fill the widget. Each row carries where a tap puts the cursor: the end of that line, or, below the
+its baseline where the app puts it. The launcher lays rows over recycled ones, so each row sets
+all it shows, the ink's visibility too. Rows run past the text to fill the widget: while the
+note fits they end a dp short of its bottom (the launcher reports whole dp), the last row's
+strip cut to fit, so the list has nothing to scroll; a longer note scrolls to one blank line
+past its end. Each row carries where a tap puts the cursor: the end of that line, or, below the
 text, how many blank lines to add (`Jump`). The app refreshes every widget when it leaves the
 screen.
