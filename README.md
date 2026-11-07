@@ -1,5 +1,7 @@
 # Daily Note
 
+> **Daily Note now lives in [Mini Apps](https://github.com/whatwhatwhoa/MiniApps)** (`apps/dailynote`), with the other small apps in the series. The releases here stay; new releases come out there.
+
 **One page of paper on your phone.** Tap a line and write; swipe across words to scratch them
 out. A yellow pad, college ruled, a legal pad, grid or dot grid, and the same page as a widget
 on your home screen. That's all it is: one page, no extras.
